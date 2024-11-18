@@ -63,6 +63,9 @@ importers:
     specifiers:
       '@apollo/client': ^3.11.10
       '@graphql-codegen/cli': ^5.0.3
+      '@graphql-codegen/fragment-matcher': ^5.0.2
+      '@graphql-codegen/introspection': ^4.0.3
+      '@graphql-codegen/schema-ast': ^4.1.0
       '@graphql-codegen/typescript': ^4.1.1
       '@graphql-codegen/typescript-operations': ^4.3.1
       '@graphql-codegen/typescript-react-apollo': ^4.3.2
@@ -71,6 +74,9 @@ importers:
     devDependencies:
       '@apollo/client': 3.11.10_graphql@16.9.0
       '@graphql-codegen/cli': 5.0.3_graphql@16.9.0
+      '@graphql-codegen/fragment-matcher': 5.0.2_graphql@16.9.0
+      '@graphql-codegen/introspection': 4.0.3_graphql@16.9.0
+      '@graphql-codegen/schema-ast': 4.1.0_graphql@16.9.0
       '@graphql-codegen/typescript': 4.1.1_graphql@16.9.0
       '@graphql-codegen/typescript-operations': 4.3.1_graphql@16.9.0
       '@graphql-codegen/typescript-react-apollo': 4.3.2_graphql@16.9.0
@@ -1241,6 +1247,16 @@ packages:
       tslib: 2.6.3
     dev: true
 
+  /@graphql-codegen/fragment-matcher/5.0.2_graphql@16.9.0:
+    resolution: {integrity: sha512-AeazT6Arv7LvpkvPYTajfUO6g1FeGLqyt6VaxDhMIRCuJN21PAvSWsh3wayc+K5L5VtYFZXYczC7Lw1bMb8C2Q==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 5.1.0_graphql@16.9.0
+      graphql: 16.9.0
+      tslib: 2.6.3
+    dev: true
+
   /@graphql-codegen/gql-tag-operations/4.0.11_graphql@16.9.0:
     resolution: {integrity: sha512-EUQuBsYB5RtNlzBb/O0nJvbWC8HvPRWwVTHRf0ElOoQlJfRgfDom2GWmEM5hXa2afzMqB7AWxOH24ibOqiYnMQ==}
     engines: {node: '>=16'}
@@ -1251,6 +1267,20 @@ packages:
       '@graphql-codegen/visitor-plugin-common': 5.5.0_graphql@16.9.0
       '@graphql-tools/utils': 10.5.6_graphql@16.9.0
       auto-bind: 4.0.0
+      graphql: 16.9.0
+      tslib: 2.6.3
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
+  /@graphql-codegen/introspection/4.0.3_graphql@16.9.0:
+    resolution: {integrity: sha512-4cHRG15Zu4MXMF4wTQmywNf4+fkDYv5lTbzraVfliDnB8rJKcaurQpRBi11KVuQUe24YTq/Cfk4uwewfNikWoA==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 5.1.0_graphql@16.9.0
+      '@graphql-codegen/visitor-plugin-common': 5.5.0_graphql@16.9.0
       graphql: 16.9.0
       tslib: 2.6.3
     transitivePeerDependencies:

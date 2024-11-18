@@ -16,6 +16,18 @@ const config: CodegenConfig = {
         withHooks: true,
       }
     },
+    './generated/fragment.json': {
+      plugins: ['fragment-matcher'],
+    },
+    './generated/schema.json': {
+      plugins: ['introspection'],
+    },
+    './generated/schema.graphql': {
+      plugins: ['schema-ast'],
+      config: {
+        includeDirectives: true,
+      },
+    },
   },
   hooks: {
     afterAllFileWrite: ['prettier --write'], // ファイル生成後に Prettier を適用
