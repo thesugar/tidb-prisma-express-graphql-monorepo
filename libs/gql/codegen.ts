@@ -4,7 +4,7 @@ const config: CodegenConfig = {
   schema: 'schemas/**/*.graphql',
   documents: '../../apps/frontend/src/**/*.graphql', // フロントエンドで使うクエリ・ミューテーション
   generates: {
-    './generated/index.ts': { // 型定義ファイル
+    './dist/index.ts': { // 型定義ファイル
       plugins: [
         'typescript',
         'typescript-operations',
@@ -16,13 +16,13 @@ const config: CodegenConfig = {
         withHooks: true,
       }
     },
-    './generated/fragment.json': {
+    './dist/fragment.json': {
       plugins: ['fragment-matcher'],
     },
-    './generated/schema.json': {
+    './dist/schema.json': {
       plugins: ['introspection'],
     },
-    './generated/schema.graphql': {
+    './dist/schema.graphql': {
       plugins: ['schema-ast'],
       config: {
         includeDirectives: true,

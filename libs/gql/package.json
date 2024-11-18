@@ -2,10 +2,16 @@
   "name": "gql",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:schema": "graphql-codegen"
+    "clean": "node -e 'fs.rmSync(`dist`, {recursive:true, force:true})'",
+    "build": "npm-run-all build:schema -p build:esm build:cjs",
+    "build:schema": "graphql-codegen",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:watch": "run-p \"build:schema -- -w\" \"build:esm -- -w\" \"build:cjs -- -w\""
   },
   "keywords": [],
   "author": "",
@@ -19,7 +25,12 @@
     "@graphql-codegen/typescript": "^4.1.1",
     "@graphql-codegen/typescript-operations": "^4.3.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@types/node": "^20.5.1",
     "graphql": "^16.9.0",
-    "prettier": "^3.3.3"
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.8.1",
+    "typescript": "^5.6.3"
   }
 }
