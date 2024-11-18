@@ -4,23 +4,17 @@ const config: CodegenConfig = {
   schema: 'schemas/**/*.graphql',
   documents: '../../apps/frontend/src/**/*.graphql', // フロントエンドで使うクエリ・ミューテーション
   generates: {
-    './generated/types.ts': { // 型定義ファイル
+    './generated/index.ts': { // 型定義ファイル
       plugins: [
         'typescript',
         'typescript-operations',
+        'typescript-react-apollo',
       ],
       config: {
         enumsAsTypes: true, // EnumをTypeScript型で出力
         enumPrefix: false,
-      }
-    },
-    './generated/hooks.tsx': { // React Apolloフック
-      plugins: [
-        'typescript-react-apollo',
-      ],
-      config: { 
         withHooks: true,
-      } 
+      }
     },
   },
   hooks: {
