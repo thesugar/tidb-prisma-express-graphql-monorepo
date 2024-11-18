@@ -10,6 +10,17 @@ query GetPlayer($id: ID!) {
   }
 }
 
+query ListPlayers {
+  listPlayers {
+    id
+    name
+    profile {
+      age
+      bio
+    }
+  }
+}
+
 mutation CreatePlayer($name: String!, $age: Int, $bio: String) {
   createPlayer(name: $name, age: $age, bio: $bio) {
     id
