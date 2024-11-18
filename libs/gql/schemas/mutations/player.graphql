@@ -1,0 +1,4 @@
+type Mutation {
+  createPlayer(name: String!, age: Int, bio: String): Player!
+  updatePlayer(id: ID!, name: String, age: Int, bio: String): Player!
+}

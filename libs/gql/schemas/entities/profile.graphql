@@ -1,0 +1,6 @@
+type Profile {
+  id: ID!
+  age: Int
+  bio: String
+  player: Player
+}
