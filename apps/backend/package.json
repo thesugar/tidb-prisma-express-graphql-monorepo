@@ -30,6 +30,10 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "@derail/gql-test": "workspace:*",
+    "@graphql-tools/load-files": "^7.0.0",
+    "@graphql-tools/merge": "^9.0.9",
+    "@graphql-tools/schema": "^10.0.8",
     "@prisma/client": "^5.1.1",
     "apollo-server-express": "^3.13.0",
     "express": "^4.21.1",

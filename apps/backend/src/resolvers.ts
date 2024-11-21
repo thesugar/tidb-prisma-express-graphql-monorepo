@@ -1,42 +1,25 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { Resolvers } from '@derail/gql-test/dist/resolvers';
 
-const resolvers = {
+export const resolvers: Resolvers = {
   Query: {
-    players: async () => await prisma.player.findMany(),
-    player: async (_: any, { id }: any) => await prisma.player.findUnique({ where: { id: parseInt(id) } }),
-    profile: async (_: any, { playerId }: any) => await prisma.profile.findUnique({ where: { playerId: parseInt(playerId) } }),
+    getPlayer: async (_parent, { id }, context) => {
+      return await context.db.player.findUnique({ where: { id: Number(id) } });
+    },
+    listPlayers: async (_parent, _args, context) => {
+      return await context.db.player.findMany();
+    },
   },
-
   Mutation: {
-    createPlayer: async (_: any, { name, coins = 0, goods = 0 }: any) => {
-      return await prisma.player.create({
-        data: { name, coins, goods },
+    createPlayer: async (_parent, { name, age, bio }, context) => {
+      return await context.db.player.create({
+        data: { name, age, bio },
       });
     },
-    updatePlayer: async (_: any, { id, name, coins, goods }: any) => {
-      return await prisma.player.update({
-        where: { id: parseInt(id) },
-        data: { name, coins, goods },
+    updatePlayer: async (_parent, { id, name, age, bio }, context) => {
+      return await context.db.player.update({
+        where: { id },
+        data: { name, age, bio },
       });
     },
-    deletePlayer: async (_: any, { id }: any) => {
-      return await prisma.player.delete({ where: { id: parseInt(id) } });
-    },
-    createProfile: async (_: any, { playerId, biography }: any) => {
-      return await prisma.profile.create({
-        data: { playerId: parseInt(playerId), biography },
-      });
-    },
-  },
-
-  Player: {
-    profile: async (parent: { id: any; }) => await prisma.profile.findUnique({ where: { playerId: parent.id } }),
-  },
-
-  Profile: {
-    player: async (parent: { playerId: any; }) => await prisma.player.findUnique({ where: { id: parent.playerId } }),
   },
 };
-
-export default resolvers;
