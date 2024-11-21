@@ -8,16 +8,16 @@ type PlayerListProps = {
 const PlayerList: React.FC<PlayerListProps> = ({ onClickListItem }) => {
   const { data, loading, error } = useListPlayersQuery();
 
+  const handleClick = useCallback((playerId: string) => () => {
+    onClickListItem(playerId)
+  }, [])
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   if (!data || !data.listPlayers) {
     return <div>No players found.</div>;
   }
-
-  const handleClick = useCallback((playerId: string) => () => {
-    onClickListItem(playerId)
-  }, [])
 
   return (
     <div>
