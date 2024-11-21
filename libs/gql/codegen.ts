@@ -2,7 +2,7 @@ import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   schema: 'schemas/**/*.graphql',
-  documents: '../../apps/frontend/src/**/*.graphql', // フロントエンドで使うクエリ・ミューテーション
+  documents: 'schemas/(queries|mutations)/*.graphql', // フロントエンドで使うクエリ・ミューテーション
   generates: {
     './dist/index.ts': { // 型定義ファイル
       plugins: [

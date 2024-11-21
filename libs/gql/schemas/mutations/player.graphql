@@ -2,3 +2,25 @@ type Mutation {
   createPlayer(name: String!, age: Int, bio: String): Player!
   updatePlayer(id: ID!, name: String, age: Int, bio: String): Player!
 }
+
+mutation CreatePlayer($name: String!, $age: Int, $bio: String) {
+  createPlayer(name: $name, age: $age, bio: $bio) {
+    id
+    name
+    profile {
+      age
+      bio
+    }
+  }
+}
+
+mutation UpdatePlayer($id: ID!, $name: String!, $age: Int, $bio: String) {
+  updatePlayer(id: $id, name: $name, age: $age, bio: $bio) {
+    id
+    name
+    profile {
+      age
+      bio
+    }
+  }
+}
