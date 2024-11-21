@@ -28,6 +28,12 @@ const config: CodegenConfig = {
         includeDirectives: true,
       },
     },
+    './dist/resolvers.ts': {
+      plugins: [
+        "typescript",
+        "typescript-resolvers"
+      ]
+    }
   },
   hooks: {
     afterAllFileWrite: ['prettier --write'], // ファイル生成後に Prettier を適用
