@@ -15,8 +15,7 @@ const PlayerDetail: React.FC<PlayerDetailProps> = ({ playerId }) => {
   const [updatePlayer] = useUpdatePlayerMutation();
 
   const [name, setName] = useState('');
-  const [age, setAge] = useState<number | undefined>();
-  const [bio, setBio] = useState('');
+  const [biography, setBiography] = useState('');
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -29,8 +28,7 @@ const PlayerDetail: React.FC<PlayerDetailProps> = ({ playerId }) => {
       variables: {
         id: playerId,
         name: name || player.name,
-        age: age ?? player.profile?.age,
-        bio: bio || player.profile?.bio,
+        biography: biography || player.profile?.biography,
       },
     });
   };
@@ -38,8 +36,7 @@ const PlayerDetail: React.FC<PlayerDetailProps> = ({ playerId }) => {
   return (
     <div>
       <h2>Player Detail: {player.name}</h2>
-      <p>Age: {player.profile?.age ?? 'N/A'}</p>
-      <p>Bio: {player.profile?.bio ?? 'N/A'}</p>
+      <p>Biography: {player.profile?.biography ?? 'N/A'}</p>
 
       <h3>Edit Player</h3>
       <form onSubmit={(e) => e.preventDefault()}>
@@ -52,18 +49,10 @@ const PlayerDetail: React.FC<PlayerDetailProps> = ({ playerId }) => {
           />
         </label>
         <label>
-          Age:
-          <input
-            type="number"
-            defaultValue={player.profile?.age ?? ''}
-            onChange={(e) => setAge(Number(e.target.value))}
-          />
-        </label>
-        <label>
-          Bio:
+          Biography:
           <textarea
-            defaultValue={player.profile?.bio ?? ''}
-            onChange={(e) => setBio(e.target.value)}
+            defaultValue={player.profile?.biography ?? ''}
+            onChange={(e) => setBiography(e.target.value)}
           />
         </label>
         <button onClick={handleUpdate}>Update</button>

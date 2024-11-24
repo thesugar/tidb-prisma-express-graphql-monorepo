@@ -29,7 +29,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ onClickListItem }) => {
             onClick={handleClick(player.id)}
             style={{ cursor: "pointer" }}
           >
-            {player.name} (Age: {player.profile?.age})
+            {player.name}
           </li>
         ))}
       </ul>
