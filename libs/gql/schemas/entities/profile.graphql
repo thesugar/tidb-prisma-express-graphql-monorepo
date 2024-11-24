@@ -1,6 +1,5 @@
 type Profile {
-  id: ID!
-  age: Int
-  bio: String
-  player: Player
+  playerId: ID!
+  biography: String!
+  player: Player!
 }

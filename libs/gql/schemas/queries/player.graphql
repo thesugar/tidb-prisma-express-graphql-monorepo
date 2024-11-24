@@ -7,9 +7,11 @@ query GetPlayer($id: ID!) {
   getPlayer(id: $id) {
     id
     name
+    coins
+    goods
+    createdAt
     profile {
-      age
-      bio
+      biography
     }
   }
 }
@@ -18,9 +20,11 @@ query ListPlayers {
   listPlayers {
     id
     name
+    coins
+    goods
+    createdAt
     profile {
-      age
-      bio
+      biography
     }
   }
 }
