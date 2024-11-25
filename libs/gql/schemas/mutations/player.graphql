@@ -1,6 +1,7 @@
 type Mutation {
   createPlayer(name: String!, biography: String): Player!
   updatePlayer(id: ID!, name: String, biography: String): Player!
+  deletePlayer(id: ID!): ID!
 }
 
 mutation CreatePlayer($name: String!, $biography: String) {
@@ -27,4 +28,8 @@ mutation UpdatePlayer($id: ID!, $name: String!, $biography: String) {
       biography
     }
   }
+}
+
+mutation DeletePlayer($id: ID!) {
+  deletePlayer(id: $id)
 }
