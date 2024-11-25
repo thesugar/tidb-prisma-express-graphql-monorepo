@@ -78,5 +78,34 @@ export const resolvers: Resolvers = {
         include: { profile: true },
       });
     },
+
+    deletePlayer: async (
+      _parent,
+      args,
+      context,
+    ) => {
+      const playerId = parseInt(args.id);
+    
+      // Player が存在するか確認
+      const player = await context.db.player.findUnique({
+        where: { id: playerId },
+      });
+    
+      if (!player) {
+        throw new Error(`Player with ID ${playerId} does not exist.`);
+      }
+    
+      // 関連する Profile を削除
+      await context.db.profile.deleteMany({
+        where: { playerId },
+      });
+    
+      // Player を削除
+      await context.db.player.delete({
+        where: { id: playerId },
+      });
+    
+      return args.id;
+    },
   },
 };
