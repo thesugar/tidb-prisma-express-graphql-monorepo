@@ -1,6 +1,7 @@
 // components/PlayerDetail.tsx
 import React, { useState } from 'react';
 import { useGetPlayerQuery, useUpdatePlayerMutation } from '@derail/gql-test';
+import { DeletePlayer } from '../deletePlayer';
 
 interface PlayerDetailProps {
   playerId: string;
@@ -56,6 +57,7 @@ const PlayerDetail: React.FC<PlayerDetailProps> = ({ playerId }) => {
           />
         </label>
         <button onClick={handleUpdate}>Update</button>
+        <DeletePlayer playerId={playerId} />
       </form>
     </div>
   );
