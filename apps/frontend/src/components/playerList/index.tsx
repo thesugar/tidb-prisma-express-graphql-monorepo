@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
 import { useListPlayersQuery } from "@derail/gql-test";
+import { CreatePlayer } from "../createPlayer";
 
 type PlayerListProps = {
   onClickListItem: (playerId: string) => void;
@@ -21,6 +22,7 @@ const PlayerList: React.FC<PlayerListProps> = ({ onClickListItem }) => {
 
   return (
     <div>
+      <CreatePlayer />
       <h2>Player List</h2>
       <ul>
         {data.listPlayers.map((player) => (
