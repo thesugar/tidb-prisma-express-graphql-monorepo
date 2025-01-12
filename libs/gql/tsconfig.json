@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "lib": ["ES2018", "DOM"], // 必要に応じて DOM ライブラリも追加
+        "module": "CommonJS",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "moduleResolution": "node"
+    },
+    "include": ["dist/**/*"]
+}

@@ -1,0 +1,35 @@
+type Mutation {
+  createPlayer(name: String!, biography: String): Player!
+  updatePlayer(id: ID!, name: String, biography: String): Player!
+  deletePlayer(id: ID!): ID!
+}
+
+mutation CreatePlayer($name: String!, $biography: String) {
+  createPlayer(name: $name, biography: $biography) {
+    id
+    name
+    coins
+    goods
+    createdAt
+    profile {
+      biography
+    }
+  }
+}
+
+mutation UpdatePlayer($id: ID!, $name: String!, $biography: String) {
+  updatePlayer(id: $id, name: $name, biography: $biography) {
+    id
+    name
+    coins
+    goods
+    createdAt
+    profile {
+      biography
+    }
+  }
+}
+
+mutation DeletePlayer($id: ID!) {
+  deletePlayer(id: $id)
+}

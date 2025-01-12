@@ -1,33 +1,16 @@
-import { gql } from 'apollo-server-express';
+import { loadFilesSync } from '@graphql-tools/load-files';
+import { mergeTypeDefs } from '@graphql-tools/merge';
+import { GraphQLSchema } from 'graphql';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { resolvers } from './resolvers';
 
-const typeDefs = gql`
-  type Player {
-    id: ID!
-    name: String!
-    coins: Float!
-    goods: Int!
-    createdAt: String!
-    profile: Profile
-  }
+const typeDefsPath = require.resolve('@derail/gql-test/dist/schema.graphql');
 
-  type Profile {
-    playerId: ID!
-    biography: String!
-    player: Player
-  }
+const typeDefs = mergeTypeDefs(loadFilesSync(typeDefsPath));
 
-  type Query {
-    players: [Player!]!
-    player(id: ID!): Player
-    profile(playerId: ID!): Profile
-  }
+const schema: GraphQLSchema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
 
-  type Mutation {
-    createPlayer(name: String!, coins: Float, goods: Int): Player!
-    updatePlayer(id: ID!, name: String, coins: Float, goods: Int): Player!
-    deletePlayer(id: ID!): Player!
-    createProfile(playerId: ID!, biography: String!): Profile!
-  }
-`;
-
-export default typeDefs;
+export default schema;

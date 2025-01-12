@@ -1,0 +1,37 @@
+{
+  "name": "@derail/gql-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "scripts": {
+    "clean": "node -e 'fs.rmSync(`dist`, {recursive:true, force:true})'",
+    "build": "npm-run-all build:schema -p build:esm build:cjs",
+    "build:schema": "graphql-codegen",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:watch": "run-p \"build:schema -- -w\" \"build:esm -- -w\" \"build:cjs -- -w\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@apollo/client": "^3.11.10",
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/fragment-matcher": "^5.0.2",
+    "@graphql-codegen/introspection": "^4.0.3",
+    "@graphql-codegen/schema-ast": "^4.1.0",
+    "@graphql-codegen/typescript": "^4.1.1",
+    "@graphql-codegen/typescript-operations": "^4.3.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@graphql-codegen/typescript-resolvers": "^4.4.0",
+    "@types/node": "^20.5.1",
+    "graphql": "^16.9.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.8.1",
+    "typescript": "^5.6.3"
+  }
+}

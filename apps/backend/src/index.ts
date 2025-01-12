@@ -1,11 +1,22 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import typeDefs from './schema';
-import resolvers from './resolvers';
+import { resolvers } from './resolvers';
+import { PrismaClient } from '@prisma/client';
 
 async function startServer() {
   const app = express() as any;
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const prisma = new PrismaClient();
+  
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: async () => {
+      return {
+        db: prisma,
+      };
+    },
+  });
   await server.start();
   server.applyMiddleware({ app });
 

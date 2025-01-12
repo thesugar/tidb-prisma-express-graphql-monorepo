@@ -1,0 +1,30 @@
+type Query {
+  getPlayer(id: ID!): Player
+  listPlayers: [Player!]!
+}
+
+query GetPlayer($id: ID!) {
+  getPlayer(id: $id) {
+    id
+    name
+    coins
+    goods
+    createdAt
+    profile {
+      biography
+    }
+  }
+}
+
+query ListPlayers {
+  listPlayers {
+    id
+    name
+    coins
+    goods
+    createdAt
+    profile {
+      biography
+    }
+  }
+}
