@@ -4,6 +4,8 @@ FROM node:18.19.0-slim AS base
 # 作業ディレクトリを作成
 WORKDIR /usr/src/app
 
+RUN ls -R
+
 # 必要なファイルをコピー
 COPY . .
 COPY pnpm-workspace.yaml .
