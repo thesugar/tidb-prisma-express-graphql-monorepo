@@ -9,6 +9,7 @@ RUN ls -R
 # 必要なファイルをコピー
 COPY . .
 COPY pnpm-workspace.yaml .
+COPY turbo.json .
 COPY libs ./libs
 COPY apps/backend ./apps/backend
 
