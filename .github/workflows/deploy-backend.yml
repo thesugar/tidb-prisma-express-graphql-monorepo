@@ -1,0 +1,52 @@
+name: Deploy Backend to Cloud Run via Artifact Registry
+
+on:
+  push:
+    branches:
+      - main  # main ブランチへの push をトリガーにする
+
+jobs:
+  deploy:
+    name: Build and Deploy to Cloud Run
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリをチェックアウト
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Google Cloud CLI のセットアップ
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      # Google Cloud に認証
+      - name: Authenticate to Google Cloud
+        run: gcloud auth activate-service-account --key-file=${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      # Artifact Registry のリポジトリに認証
+      - name: Configure Artifact Registry Authentication
+        run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+
+      # 必要なファイルをコピー
+      - name: Prepare Build Directory
+        run: |
+          mkdir -p /workspace/build
+          cp -R apps/backend /workspace/build
+
+      # Docker イメージをビルドして Artifact Registry にプッシュ
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend /workspace/build
+          docker push asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend
+
+      # Cloud Run にデプロイ
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy backend \
+            --image asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend \
+            --region asia-northeast1 \
+            --platform managed \
+            --allow-unauthenticated
