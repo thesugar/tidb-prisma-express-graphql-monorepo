@@ -4,6 +4,7 @@
   "description": "The sample codes show how to connect to TiDB cluster in Node.js application with ORM framework Prisma.",
   "main": "src/index.js",
   "scripts": {
+    "build": "tsc",
     "start": "ts-node src/index.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
