@@ -25,7 +25,7 @@ jobs:
       # Google Cloud に認証
       - name: Authenticate to Google Cloud
         run: |
-          echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > key.json
+          echo '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}' > key.json
           gcloud auth activate-service-account --key-file=key.json
           rm key.json
 
