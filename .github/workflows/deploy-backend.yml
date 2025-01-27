@@ -24,7 +24,10 @@ jobs:
 
       # Google Cloud に認証
       - name: Authenticate to Google Cloud
-        run: gcloud auth activate-service-account --key-file=${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        run: |
+          echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > key.json
+          gcloud auth activate-service-account --key-file=key.json
+          rm key.json
 
       # Artifact Registry のリポジトリに認証
       - name: Configure Artifact Registry Authentication
