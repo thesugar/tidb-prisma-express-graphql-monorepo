@@ -40,8 +40,13 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/build/apps/backend
           cp -r ./libs/* $GITHUB_WORKSPACE/build/libs/
           cp -r ./apps/backend/* $GITHUB_WORKSPACE/build/apps/backend/
+          cp ./pnpm-workspace.yaml $GITHUB_WORKSPACE/build/
           cp ./package.json ./pnpm-lock.yaml $GITHUB_WORKSPACE/build/
 
+      - name: Debug Build Context
+        run: |
+          echo "=== Build Context ==="
+          ls -R $GITHUB_WORKSPACE/build
 
       # Docker イメージをビルドして Artifact Registry にプッシュ
       - name: Build and Push Docker Image
