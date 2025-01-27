@@ -46,7 +46,7 @@ jobs:
       # Docker イメージをビルドして Artifact Registry にプッシュ
       - name: Build and Push Docker Image
         run: |
-          docker build -t asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend $GITHUB_WORKSPACE/build/build
+          docker build -t asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend $GITHUB_WORKSPACE/build
           docker push asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend
 
       # Cloud Run にデプロイ
