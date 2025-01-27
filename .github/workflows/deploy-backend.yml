@@ -38,9 +38,10 @@ jobs:
         run: |
           mkdir -p $GITHUB_WORKSPACE/build/libs
           mkdir -p $GITHUB_WORKSPACE/build/apps/backend
-          cp ./* $GITHUB_WORKSPACE/build/
-          cp -R libs/* $GITHUB_WORKSPACE/build/libs/
-          cp -R apps/backend/* $GITHUB_WORKSPACE/build/apps/backend/
+          cp -r ./libs/* $GITHUB_WORKSPACE/build/libs/
+          cp -r ./apps/backend/* $GITHUB_WORKSPACE/build/apps/backend/
+          cp ./package.json ./pnpm-lock.yaml $GITHUB_WORKSPACE/build/
+
 
       # Docker イメージをビルドして Artifact Registry にプッシュ
       - name: Build and Push Docker Image
