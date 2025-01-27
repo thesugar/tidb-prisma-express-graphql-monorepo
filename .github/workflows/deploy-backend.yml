@@ -36,13 +36,16 @@ jobs:
       # 必要なファイルをコピー
       - name: Prepare Build Directory
         run: |
-          mkdir -p /workspace/build
-          cp -R apps/backend /workspace/build
+          mkdir -p $GITHUB_WORKSPACE/build/libs
+          mkdir -p $GITHUB_WORKSPACE/build/apps/backend
+          cp ./* $GITHUB_WORKSPACE/build/
+          cp -R libs/* $GITHUB_WORKSPACE/build/libs/
+          cp -R apps/backend/* $GITHUB_WORKSPACE/build/apps/backend/
 
       # Docker イメージをビルドして Artifact Registry にプッシュ
       - name: Build and Push Docker Image
         run: |
-          docker build -t asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend /workspace/build
+          docker build -t asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend $GITHUB_WORKSPACE/build/build
           docker push asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend
 
       # Cloud Run にデプロイ
