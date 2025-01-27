@@ -7,6 +7,8 @@ import { PrismaClient } from '@prisma/client';
 async function startServer() {
   const app = express() as any;
   const prisma = new PrismaClient();
+
+  const PORT = process.env.PORT || 5050;
   
   const server = new ApolloServer({
     typeDefs,
@@ -20,9 +22,14 @@ async function startServer() {
   await server.start();
   server.applyMiddleware({ app });
 
-  app.listen({ port: 5050 }, () =>
-    console.log(`Server ready at http://localhost:5050${server.graphqlPath}`)
-  );
+  try {
+    app.listen({ port: PORT }, () => {
+      console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+    });
+  } catch (error) {
+    console.error('Failed to start the server:', error);
+    process.exit(1);
+  }
 }
 
 startServer();
