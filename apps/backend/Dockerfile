@@ -17,9 +17,12 @@ COPY apps/backend ./apps/backend
 RUN npm install -g pnpm@9.15.4
 
 RUN pnpm install --frozen-lockfile
-RUN pnpm prisma generate
 
-# アプリケーションのビルド（必要なら）
+WORKDIR /usr/src/app/apps/backend
+RUN npx prisma generate
+
+# アプリケーションのビルド
+WORKDIR /usr/src/app
 RUN pnpm run build --filter ./apps/backend && echo "Build completed successfully" || echo "Build failed"
 
 RUN ls -la apps/backend/dist || echo "Directory not found or empty"
