@@ -16,8 +16,8 @@ COPY apps/backend ./apps/backend
 # 必要なpnpmバージョンをインストール
 RUN npm install -g pnpm@9.15.4
 
-# `pnpm install` を実行
 RUN pnpm install --frozen-lockfile
+RUN pnpm prisma generate
 
 # アプリケーションのビルド（必要なら）
 RUN pnpm run build --filter ./apps/backend && echo "Build completed successfully" || echo "Build failed"
