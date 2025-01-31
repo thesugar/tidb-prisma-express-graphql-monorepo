@@ -39,8 +39,10 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          gcloud builds submit --tag asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend-repo/frontend $GITHUB_WORKSPACE/build/apps/frontend
-
+          gcloud builds submit --tag asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend-repo/frontend \
+            --file $GITHUB_WORKSPACE/build/apps/frontend/Dockerfile \
+            $GITHUB_WORKSPACE/build/
+            
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy frontend \
