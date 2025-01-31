@@ -17,7 +17,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # フロントエンドのビルド
-RUN pnpm run build --filter=apps/frontend
+RUN pnpm run build --filter ./apps/frontend
 
 # Production Image
 FROM node:18.19.0-slim
