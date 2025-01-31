@@ -37,12 +37,15 @@ jobs:
           cp ./pnpm-workspace.yaml $GITHUB_WORKSPACE/build/
           cp ./package.json ./pnpm-lock.yaml ./turbo.json $GITHUB_WORKSPACE/build/
 
+      # Docker イメージをビルドして Artifact Registry にプッシュ
       - name: Build and Push Docker Image
         run: |
-          gcloud builds submit --tag asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend \
-            --file $GITHUB_WORKSPACE/build/apps/backend/Dockerfile \
+          docker build -t asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend \
+            -f $GITHUB_WORKSPACE/build/apps/backend/Dockerfile \
             $GITHUB_WORKSPACE/build/
+          docker push asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend
 
+      # Cloud Run にデプロイ
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy backend \
