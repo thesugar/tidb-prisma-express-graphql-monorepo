@@ -39,7 +39,7 @@ const PlayerDetail: React.FC<PlayerDetailProps> = ({ playerId }) => {
       <h2>Player Detail: {player.name}</h2>
       <p>Biography: {player.profile?.biography ?? 'N/A'}</p>
 
-      <h3>Edit Player</h3>
+      <h3>Edit Player!!</h3>
       <form onSubmit={(e) => e.preventDefault()}>
         <label>
           Name:
