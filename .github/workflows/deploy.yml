@@ -1,0 +1,86 @@
+name: Deploy to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/frontend/**"
+      - "apps/backend/**"
+
+jobs:
+  deploy-frontend:
+    if: contains(github.event.head_commit.modified, 'apps/frontend/')
+    name: Deploy Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+
+      - name: Build and Push Docker Image
+        run: |
+          gcloud builds submit --tag asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend-repo/frontend apps/frontend
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy frontend \
+            --image asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend-repo/frontend \
+            --region asia-northeast1 \
+            --platform managed \
+            --allow-unauthenticated
+
+  deploy-backend:
+    if: contains(github.event.head_commit.modified, 'apps/backend/')
+    name: Deploy Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+
+      - name: Prepare Build Directory
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/build/libs
+          mkdir -p $GITHUB_WORKSPACE/build/apps/backend
+          cp -r ./libs/* $GITHUB_WORKSPACE/build/libs/
+          cp -r ./apps/backend/* $GITHUB_WORKSPACE/build/apps/backend/
+          cp ./pnpm-workspace.yaml $GITHUB_WORKSPACE/build/
+          cp ./package.json ./pnpm-lock.yaml ./turbo.json $GITHUB_WORKSPACE/build/
+
+      - name: Debug Build Context
+        run: ls -R $GITHUB_WORKSPACE/build
+
+      - name: Build and Push Docker Image
+        run: |
+          gcloud builds submit --tag asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend $GITHUB_WORKSPACE/build/
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy backend \
+            --image asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend-repo/backend \
+            --region asia-northeast1 \
+            --platform managed \
+            --allow-unauthenticated
