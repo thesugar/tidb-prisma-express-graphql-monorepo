@@ -27,9 +27,19 @@ jobs:
       - name: Configure Docker
         run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 
+      # 必要なファイルをコピー
+      - name: Prepare Build Directory
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/build/libs
+          mkdir -p $GITHUB_WORKSPACE/build/apps/frontend
+          cp -r ./libs/* $GITHUB_WORKSPACE/build/libs/
+          cp -r ./apps/frontend/* $GITHUB_WORKSPACE/build/apps/frontend
+          cp ./pnpm-workspace.yaml $GITHUB_WORKSPACE/build/
+          cp ./package.json ./pnpm-lock.yaml ./turbo.json $GITHUB_WORKSPACE/build/
+
       - name: Build and Push Docker Image
         run: |
-          gcloud builds submit --tag asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend-repo/frontend apps/frontend
+          gcloud builds submit --tag asia-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend-repo/frontend $GITHUB_WORKSPACE/build/apps/frontend
 
       - name: Deploy to Cloud Run
         run: |
