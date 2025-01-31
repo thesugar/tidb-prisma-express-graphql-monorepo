@@ -86,7 +86,7 @@ export const resolvers: Resolvers = {
     ) => {
       const playerId = parseInt(args.id);
     
-      // Player が存在するか確認
+      // Player が存在するか確認。
       const player = await context.db.player.findUnique({
         where: { id: playerId },
       });
