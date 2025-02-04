@@ -12,6 +12,7 @@ COPY pnpm-workspace.yaml .
 COPY turbo.json .
 COPY libs ./libs
 COPY apps/backend ./apps/backend
+RUN chmod +x /usr/src/app/entrypoint.sh
 
 # 必要なpnpmバージョンをインストール
 RUN npm install -g pnpm@9.15.4
@@ -25,11 +26,8 @@ RUN npx prisma generate
 WORKDIR /usr/src/app
 RUN pnpm run build --filter ./apps/backend && echo "Build completed successfully" || echo "Build failed"
 
-RUN ls -la apps/backend/dist || echo "Directory not found or empty"
-
 # ポートを開放
 EXPOSE 5050
 
-# アプリケーションを起動
-CMD ["node", "./apps/backend/dist/index.js"]
-#CMD ["pnpm", "run", "start", "--filter", "./apps/backend"]
+# CMD を entrypoint.sh に変更
+CMD ["/usr/src/app/entrypoint.sh"]
