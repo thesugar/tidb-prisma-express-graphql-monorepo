@@ -12,7 +12,7 @@ COPY pnpm-workspace.yaml .
 COPY turbo.json .
 COPY libs ./libs
 COPY apps/backend ./apps/backend
-RUN chmod +x /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/apps/backend/entrypoint.sh
 
 # 必要なpnpmバージョンをインストール
 RUN npm install -g pnpm@9.15.4
