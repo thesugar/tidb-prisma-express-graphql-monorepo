@@ -1,5 +1,6 @@
 # ベースイメージ
 FROM node:18.19.0-slim AS base
+RUN apt-get update -y && apt-get install -y openssl
 
 # 作業ディレクトリを作成
 WORKDIR /usr/src/app
