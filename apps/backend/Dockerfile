@@ -29,5 +29,4 @@ RUN pnpm run build --filter ./apps/backend && echo "Build completed successfully
 # ポートを開放
 EXPOSE 5050
 
-# CMD を entrypoint.sh に変更
-CMD ["/usr/src/app/entrypoint.sh"]
+CMD ["/usr/src/app/apps/backend/entrypoint.sh"]
