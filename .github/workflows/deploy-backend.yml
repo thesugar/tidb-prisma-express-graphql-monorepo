@@ -37,7 +37,7 @@ jobs:
           cp -r ./apps/backend/* $GITHUB_WORKSPACE/build/apps/backend/
           cp ./pnpm-workspace.yaml $GITHUB_WORKSPACE/build/
           cp ./package.json ./pnpm-lock.yaml ./turbo.json $GITHUB_WORKSPACE/build/
-          cp ./apps/backend/certs/tidb_ca.pem $GITHUB_WORKSPACE/build/apps/backend/certs/tidb_ca.pem
+          echo "${{ secrets.TIDB_CA_CERT }}" > ./apps/backend/certs/tidb_ca.pem
 
       # Docker イメージをビルドして Artifact Registry にプッシュ
       - name: Build and Push Docker Image
