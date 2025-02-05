@@ -11,6 +11,7 @@ const App: React.FC = () => {
     <ApolloProvider client={client}>
       <div>
         <h1>GraphQL CRUD App</h1>
+        {import.meta.env.VITE_BACKEND_URL}
         <PlayerList onClickListItem={setSelectedPlayer} />
         {selectedPlayer && <PlayerDetail playerId={selectedPlayer} />}
       </div>
