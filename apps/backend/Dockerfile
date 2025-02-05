@@ -1,11 +1,9 @@
 # ベースイメージ
 FROM node:18.19.0-slim AS base
-RUN apt-get update -y && apt-get install -y openssl
+RUN apt-get update -y && apt-get install -y openssl ca-certificates
 
 # 作業ディレクトリを作成
 WORKDIR /usr/src/app
-
-RUN ls -R
 
 # 必要なファイルをコピー
 COPY . .
@@ -13,6 +11,8 @@ COPY pnpm-workspace.yaml .
 COPY turbo.json .
 COPY libs ./libs
 COPY apps/backend ./apps/backend
+COPY apps/backend/certs/tidb_ca.pem /usr/local/share/ca-certificates/tidb-ca.crt
+RUN update-ca-certificates
 RUN chmod +x /usr/src/app/apps/backend/entrypoint.sh
 
 # 必要なpnpmバージョンをインストール
