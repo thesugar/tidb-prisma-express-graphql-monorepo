@@ -6,6 +6,7 @@ import client from "./graphql/client";
 
 const App: React.FC = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
+  console.log(import.meta.env.VITE_BACKEND_URL);
 
   return (
     <ApolloProvider client={client}>
