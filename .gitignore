@@ -3,6 +3,7 @@ node_modules/
 
 # Enviorment Variables
 .env
+.env.production
 
 # IDE Config
 .idea/

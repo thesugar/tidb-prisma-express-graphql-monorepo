@@ -39,7 +39,7 @@ jobs:
           cp ./package.json ./pnpm-lock.yaml ./turbo.json $GITHUB_WORKSPACE/build/
 
       - name: Prepare .env from GitHub Secret
-        run: echo "${{ secrets.ENV_PROD }}" > $GITHUB_WORKSPACE/build/apps/frontend/.env
+        run: echo "${{ secrets.ENV_FRONTEND_PROD }}" > $GITHUB_WORKSPACE/build/apps/frontend/.env
 
       # Docker イメージをビルドして Artifact Registry にプッシュ
       - name: Build and Push Docker Image

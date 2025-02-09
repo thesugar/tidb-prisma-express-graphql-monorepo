@@ -67,6 +67,7 @@ gcloud projects add-iam-policy-binding tidb-prisma-gql-monorepo \
 
 ### 環境変数の設定
 GitHub Secrets に以下を登録する。
+`ENV_FRONTEND_PROD` のように、あるファイルの中身全部をまとめて 1 つのシークレットとして登録する場合、詳細がまったくわからなくなるので、手元に `.env.production` など置いておくとよいかも。
 
 - GCP_PROJECT_ID: GCP プロジェクト ID
 - GCP_SERVICE_ACCOUNT_KEY: サービスアカウントの JSON キーファイルの内容（先ほどダウンロードした key.json）をそのまま貼り付ける
@@ -74,7 +75,7 @@ GitHub Secrets に以下を登録する。
   - Prisma で TiDB に接続するために必要。
   - TiDB の画面からダウンロードできる（Clusterの詳細画面→右上の Connect から。ただし、OS の部分で Windows を選ばないとダウンロードリンクが出てこない！）
 
-- ENV_PROD: frontend で使うもの（名前を ENV_FRONTEND_PROD とかにしてもよいかも）。
+- ENV_FRONTEND_PROD: frontend で使うもの。
   - Cloud Run の環境変数の扱われ方の関係で、フロントエンドの環境変数は GitHub Secrets に以下を登録する。
   - .env ファイルに書く内容をそのまま GitHub Secrets に登録すればよい。`VITE_HOGEHOGE=hogehoge`
 
